@@ -5,6 +5,7 @@ import os
 # Proje içerisinde tanımlı agent (AI destekli) hizmetini ve yapılarını içe aktarıyoruz
 from browser_use.agent.service import Agent
 from browser_use.agent.views import ActionResult
+from dotenv import load_dotenv
 
 # Tüm kullanıcı işlemlerini yöneten controller yapısı
 from browser_use.controller.service import Controller
@@ -63,7 +64,10 @@ async def get_attr_url(browser : BrowserContext):
 # Ana test fonksiyonu: LLM'e test görevlerini doğal dille veriyoruz ve işlemleri o gerçekleştiriyor
 async def SiteValidation():
     # Google Gemini API anahtarını çevresel değişken olarak ayarla
-    os.environ["GEMINI_API_KEY"] = "AIzaSyB3crLhvzbOECPL3BWsFRxlhjt-iUcMKbc"
+    load_dotenv()
+    os.getenv("GEMINI_API_KEY") #
+    # Gemini API anahtarını .env dosyasından güvenli şekilde alalım
+    api_key = os.getenv("GEMINI_API_KEY")
 
     # LLM'e verilecek doğal dil ile yazılmış test task'ı
     task = (
@@ -78,8 +82,7 @@ async def SiteValidation():
         'verify thankyou message is displayed \n'
     )
 
-    # Gemini API anahtarını güvenli şekilde SecretStr olarak tanımla
-    api_key = os.environ["GEMINI_API_KEY"]
+
 
     # Google Gemini tabanlı Chat LLM'i başlat
     llm = ChatGoogleGenerativeAI(model='gemini-2.0-flash-exp', api_key=SecretStr(api_key))
