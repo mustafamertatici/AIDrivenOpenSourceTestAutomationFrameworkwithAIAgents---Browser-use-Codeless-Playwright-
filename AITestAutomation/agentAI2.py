@@ -65,7 +65,6 @@ async def get_attr_url(browser : BrowserContext):
 async def SiteValidation():
     # Google Gemini API anahtarını çevresel değişken olarak ayarla
     load_dotenv()
-    os.getenv("GEMINI_API_KEY") #
     # Gemini API anahtarını .env dosyasından güvenli şekilde alalım
     api_key = os.getenv("GEMINI_API_KEY")
 

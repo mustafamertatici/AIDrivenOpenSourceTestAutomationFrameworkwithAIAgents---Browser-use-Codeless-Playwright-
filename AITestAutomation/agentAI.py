@@ -5,10 +5,12 @@ from browser_use.agent.service import Agent
 from langchain_google_genai import ChatGoogleGenerativeAI
 from posthog import api_key
 from pydantic import SecretStr
+from dotenv import load_dotenv
 
 
 async def SiteValidation():
-    os.environ["GEMINI_API_KEY"] = "AIzaSyD0KeqcWM0eP-5tJocXHrNhyhhfEm9bt08"
+    load_dotenv()
+    api_key = os.getenv("GEMINI_API_KEY")
     task=(
         'Important : I am UI Automation tester validating the tasks'
         'Open website https://the-internet.herokuapp.com/login'
